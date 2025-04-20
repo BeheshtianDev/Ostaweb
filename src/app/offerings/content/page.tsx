@@ -2,7 +2,7 @@ import React from "react";
 
 function page() {
   return (
-    <div className="w-full h-full gap-[80px] fss flex-col pr-[16%]">
+    <div className="w-full h-[100vh] gap-[80px] fss flex-col pr-[16%]">
       <div className="w-full  sticky top-[110px]  fss flex-col">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,68 +32,15 @@ function page() {
         <h2>اعتماد شما،آغاز یک همکاری بی پایان خواهد بود</h2>
       </div>
       <div className="w-full overflow-hidden fixed h-[400px] top-[355px] flex fss">
-        <div className=" h-full fcs flex-col overflow-y-scroll hide-scrollbar scroll-smooth snap-y snap-mandatory">
+        <div className="h-full fcs flex-col overflow-y-scroll hide-scrollbar scroll-smooth snap-y snap-mandatory">
           <h1 className="h-full fs snap-center ">مقدمه</h1>
           <h1 className="h-full fs snap-center ">چرا اوستاوب؟</h1>
           <h1 className="h-full fs snap-center ">بیشتر بدانید</h1>
         </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="2"
-          height="436"
-          viewBox="0 0 2 436"
-          fill="none"
-          className="mr-[40px] fixed top-[340px] right-[500px]"
-        >
-          <rect
-            y="436"
-            width="436"
-            height="2"
-            transform="rotate(-90 0 436)"
-            fill="#D9D9D9"
-          />
-          <rect
-            y="436"
-            width="436"
-            height="2"
-            transform="rotate(-90 0 436)"
-            fill="url(#paint0_linear_684_9887)"
-          />
-          <rect
-            y="436"
-            width="436"
-            height="2"
-            transform="rotate(-90 0 436)"
-            fill="url(#paint1_linear_684_9887)"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_684_9887"
-              x1="0"
-              y1="437"
-              x2="436"
-              y2="437"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stop-color="#5433FF" />
-              <stop offset="0.5" stop-color="#20BDFF" />
-              <stop offset="1" stop-color="#A5FECB" />
-            </linearGradient>
-            <linearGradient
-              id="paint1_linear_684_9887"
-              x1="0"
-              y1="437"
-              x2="436"
-              y2="437"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stop-color="#E65C00" />
-              <stop offset="1" stop-color="#F9D423" />
-            </linearGradient>
-          </defs>
-        </svg>
 
-        <div className="w-2/3 mr-[30px] h-full fcs flex-col overflow-y-scroll hide-scrollbar scroll-smooth snap-y snap-mandatory">
+
+        <div className="w-2/3 mr-[30px]  fcs flex-col
+         overflow-y-scroll hide-scrollbar scroll-smooth snap-y snap-mandatory h-[500px]">
           <h3 className="text-wrap fs snap-center">
             در دنیای امروز، شبکه‌های اجتماعی به یکی از مهم‌ترین کانال‌های
             ارتباطی کسب‌وکارها با مخاطبان تبدیل شده‌اند. برای موفقیت در این فضا،
