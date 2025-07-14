@@ -1,5 +1,5 @@
 import React from "react";
-import Personel from "../components/Personel";
+import Personel from "../../components/Personel";
 
 const page = () => {
   return (

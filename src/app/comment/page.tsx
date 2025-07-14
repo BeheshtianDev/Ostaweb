@@ -1,5 +1,5 @@
 import React from "react";
-import CurvedCarousel from "../components/CurvedCarousel";
+import CurvedCarousel from "../../components/CurvedCarousel";
 
 const page = () => {
   return (
