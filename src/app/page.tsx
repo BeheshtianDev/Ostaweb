@@ -1,157 +1,120 @@
-"use client"
-import React, {useRef, useEffect, useCallback} from 'react';
-import {gsap} from 'gsap';
-import {ScrollTrigger} from 'gsap/dist/ScrollTrigger';
-import Logo from "../../public/images/sold.png"
-import Image from "next/image";
-import Aboutanimation from "@/app/aboutanimation/page";
-import Land from "@/components/sections/head/page";
-// ... بقیۀ ایمپورت‌ها
+"use client";
 
-if (typeof window !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-}
+import React, { useRef, useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Image from "next/image";
+import Land from "@/components/sections/head/page";
+import Aboutanimation from "@/app/aboutanimation/page";
+import CustomerCard from "@/components/sections/customerCard/page";
+import ColapStep from "@/components/sections/colabStep/page";
+import Faq from "@/components/Faq";
+import MagazinPage from "@/components/magazin/MagazinPage";
+import EndPart from "@/components/EndPart";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function OstaWebSection() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const ostaRef    = useRef<HTMLDivElement>(null);
-    const webRef     = useRef<HTMLDivElement>(null);
-    const imageRefs  = useRef<HTMLImageElement[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef1 = useRef<HTMLDivElement>(null);
+  const textRef2 = useRef<HTMLDivElement>(null);
+  const imagesRef = useRef<HTMLDivElement>(null);
+  const [count, setCount] = useState(6);
 
-    const addToRefs = useCallback((el: HTMLImageElement | null) => {
-        if (el && !imageRefs.current.includes(el)) {
-            imageRefs.current.push(el);
-        }
-    }, []);
+  useEffect(() => {
+    if (!imagesRef.current) return;
 
-    useEffect(() => {
-        if (!sectionRef.current) return;
+    const imgs = imagesRef.current.querySelectorAll("img");
 
-        // 1. matchMedia برای موبایل و دسکتاپ
-        const mm = gsap.matchMedia();
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "+=2000",
+        scrub: 1,
+        pin: true,
+      },
+    });
 
-        mm.add({
-            // موبایل: تا 1023px
-            isMobile: "(max-width: 1023px)",
-            // دسکتاپ: از 1024px
-            isDesktop: "(min-width: 1024px)"
-        }, (context) => {
-            // با هر بار تغییر سایز، این فانکشن فراخوانی میشه
-            const { isMobile, revert } = context;
+    tl.to(textRef1.current, { x: "-40vw", duration: 1.5 }, 0)
+      .to(textRef2.current, { x: "40vw", duration: 1.5 }, 0)
+      .to(imagesRef.current, { width: "65%", duration: 2 }, 0)
+      .to(
+        imgs, // ✅ always a NodeList, not undefined
+        {
+          width: "1000px",
+          rotate: 0,
+          duration: 1.5,
+        },
+        0
+      );
 
-            // Timeline کلی
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current!,
-                    start: "top top",
-                    end: "bottom top -50%",
-                    pin: true,
-                    scrub: 1.5,
-                    // markers: true
-                }
-            });
+    return () => {
+      tl.kill();
+    };
+  }, []);
 
-            // --- انیمیشن اول ---
-            if (isMobile) {
-                // موبایل: y حرکت بده
-                tl.to(ostaRef.current, {
-                    x: '-200vw',
-                    ease: 'power2.out',
-                    duration: 4
-                }, 0)
-                    .to(webRef.current, {
-                        x: '200vw',
-                        ease: 'power2.out',
-                        duration: 4
-                    }, 0);
-            } else {
-                // دسکتاپ: طبق قبل با x
-                tl.to(ostaRef.current, {
-                    x: '-40vw',
-                    ease: 'power2.out',
-                    duration: 4
-                }, 0)
-                    .to(webRef.current, {
-                        x: '40vw',
-                        ease: 'power2.out',
-                        duration: 4
-                    }, 0);
-            }
+  useEffect(() => {
+    const check = () => {
+      if (window.innerWidth < 768) {
+        setCount(5); // mobile → 5 images
+      } else {
+        setCount(6); // desktop → 6 images
+      }
+    };
 
-            // --- انیمیشن تصاویر (بدون تغییر) ---
-            const images = imageRefs.current;
-            gsap.set(images, {
-                x: '100vw',
-                opacity: 0,
-                top: '50%',
-            });
-            images.forEach((image, index) => {
-                const delay = index * 8;
-                tl.to(image, {
-                    x: '-10vw',
-                    opacity: 1,
-                    duration: 6,
-                    ease: "power2.out"
-                }, delay);
-                tl.to(image, {
-                    x: '-100vw',
-                    opacity: 0,
-                    duration: 6,
-                    ease: "power2.in"
-                }, delay + 3);
-            });
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return (
+    <>
+      <Land />
+      <div
+        ref={containerRef}
+        className="relative h-screen flex justify-center items-center overflow-hidden z-10"
+      >
+        {/* Text */}
+        <div
+          dir="ltr"
+          className="de:text-[280px] mo:text-[40vw] w-full h-screen flex items-center  justify-center pointer-events-none z-20 rotate-90 de:rotate-0"
+        >
+          <div ref={textRef1} className="font-black text-white">
+            OSTA
+          </div>
+          <div ref={textRef2} className="font-black text-white">
+            WEB
+          </div>
+        </div>
 
-            // Cleanup برای این context
-            return () => {
-                tl.kill();
-                if (tl.scrollTrigger) tl.scrollTrigger.kill();
-                revert(); // revert تمام تغییرات GSAP
-            };
-        });
+        {/* Images */}
+        <div
+          ref={imagesRef}
+          className="absolute w-0 h-full flex justify-center overflow-hidden items-center gap-20 "
+        >
+          {Array.from({ length: count }).map((_, i) => (
+            <Image
+              key={i}
+              src="/images/ShowCase.png"
+              alt=""
+              width={400}
+              height={300}
+              className="w-0 rotate-180  h-auto"
+            />
+          ))}
+        </div>
+      </div>
 
-        // خروجی useEffect: revert همه media-specific animations
-        return () => {
-            mm.revert();
-            ScrollTrigger.getAll().forEach(t => t.kill());
-        };
-    }, []);
-
-    return (
-        <>
-            <Land/>
-            <div ref={sectionRef} className="relative h-screen overflow-hidden z-10">
-                {/* کلاس‌های Tailwind برای چرخش */}
-                <div
-                    dir="ltr"
-                    className="fixed top-0 left-0 w-full h-screen flex items-center justify-center pointer-events-none z-20 rotate-90 lg:rotate-0"
-                >
-                    <div ref={ostaRef} className="text-[10vw] font-black text-white">osta</div>
-                    <div ref={webRef}  className="text-[10vw] font-black text-white">web</div>
-                </div>
-
-                <div className="absolute inset-0 w-full">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                        <Image
-                            key={index}
-                            ref={addToRefs}
-                            src={Logo}
-                            alt={`Project ${index + 1}`}
-                            width={400}
-                            height={300}
-                            className="absolute w-[30vw] max-w-[500px] h-auto opacity-80"
-                            style={{
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                marginLeft: `${index * 60}px`
-                            }}
-                        />
-                    ))}
-                </div>
-            </div>
-
-            <div className="relative z-30">
-                <Aboutanimation/>
-            </div>
-        </>
-    );
+      <div className="relative ">
+        <Aboutanimation />
+      </div>
+      <div>
+        <CustomerCard />
+      </div>
+      <ColapStep />
+      <Faq />
+      <MagazinPage />
+      <EndPart />
+    </>
+  );
 }

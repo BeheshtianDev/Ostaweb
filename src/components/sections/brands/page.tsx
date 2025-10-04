@@ -1,34 +1,34 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+// import { useEffect, useRef } from 'react';
+// import gsap from 'gsap';
 
-const MouseLight = () => {
-    const lightRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            if (lightRef.current) {
-                gsap.to(lightRef.current, {
-                    x: e.clientX - 50,
-                    y: e.clientY - 50,
-                    ease: 'power2.out',
-                    duration: 0.3,
-                });
-            }
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
-
-    return (
-        <div
-            ref={lightRef}
-            className="pointer-events-none fixed top-0 left-0 z-50 w-[100px] h-[100px] rounded-full bg-[#B5964D] opacity-20 shadow-[0_0_40px_20px_#B5964D]"
-        />
-    );
-};
+// const MouseLight = () => {
+//     const lightRef = useRef<HTMLDivElement>(null);
+//
+//     useEffect(() => {
+//         const handleMouseMove = (e: MouseEvent) => {
+//             if (lightRef.current) {
+//                 gsap.to(lightRef.current, {
+//                     x: e.clientX - 50,
+//                     y: e.clientY - 50,
+//                     ease: 'power2.out',
+//                     duration: 0.3,
+//                 });
+//             }
+//         };
+//
+//         window.addEventListener('mousemove', handleMouseMove);
+//         return () => window.removeEventListener('mousemove', handleMouseMove);
+//     }, []);
+//
+//     return (
+//         <div
+//             ref={lightRef}
+//             className="pointer-events-none fixed top-0 left-0 z-50 w-[100px] h-[100px] rounded-full bg-[#B5964D] opacity-20 shadow-[0_0_40px_20px_#B5964D]"
+//         />
+//     );
+// };
 
 const Brands = () => {
     return (

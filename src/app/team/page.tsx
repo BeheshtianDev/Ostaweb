@@ -1,15 +1,53 @@
-import React from "react";
-import Personel from "../../components/Personel";
+"use client";
+import Personel from "@/components/Personel";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const page = () => {
+interface Person {
+  id: number;
+  name: string;
+  role: string;
+  image: string;
+}
+
+const Page = () => {
+  const [team, setTeam] = useState<Person[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const res = await axios.get("https://your-api-url.com/team");
+        if (res.status === 200) {
+          setTeam(res.data);
+        } else {
+          setError(true);
+        }
+      } catch (err) {
+        console.error("Failed to fetch team:", err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeam();
+  }, []);
+
+  if (loading) return <div className="p-4 text-center">Loading team...</div>;
+  if (error)
+    return (
+      <div className="p-4 text-red-500 text-center">Failed to load team.</div>
+    );
   return (
-    <div className="bg-[url('/images/Vector.png')] w-[100vw] min-h-[100vh] h-full relative fc flex-col overflow-hidden">
+    <div className="bg-[url('/images/Vector.png')] w-full min-h-[100vh] h-full relative fc flex-col overflow-hidden">
       <svg
         viewBox="0 0 24 24"
         version="1.1 "
         className="!w-[3100px] h-[3100px]  rotate-[-20deg] absolute"
       >
-        <g id="页面-1" stroke="none"  fill="none">
+        <g id="页面-1" stroke="none" fill="none">
           <g id="Part" transform="translate(-192.000000, -48.000000)">
             <g id="eyebrow_fill" transform="translate(192.000000, 48.000000)">
               <path
@@ -35,26 +73,18 @@ const page = () => {
           className=" "
         >
           <path
-            
-            
             d="M10.9496 48.9999C12.4961 35.4695 7.59271 24.4051 0 24.2896C7.59271 24.4051 15.0022 13.5304 16.5487 0C15.0022 13.5304 19.9056 24.5948 27.4983 24.7103C19.9056 24.5948 12.4961 35.4695 10.9496 48.9999Z"
             fill="#D9D9D9"
           />
           <path
-            
-            
             d="M38.4482 48.9999C39.9947 35.4695 35.0912 24.4051 27.4985 24.2896C35.0912 24.4051 42.5007 13.5304 44.0472 0C42.5007 13.5304 47.4042 24.5948 54.9969 24.7103C47.4042 24.5948 39.9947 35.4695 38.4482 48.9999Z"
             fill="#D9D9D9"
           />
           <path
-            
-            
             d="M65.9472 48.9999C67.4937 35.4695 62.5903 24.4051 54.9976 24.2896C62.5934 24.4051 70.0029 13.5304 71.5494 0C70.0029 13.5304 74.9063 24.5948 82.499 24.7103C74.9063 24.5948 67.4968 35.4695 65.9503 48.9999H65.9472Z"
             fill="#D9D9D9"
           />
           <path
-            
-            
             d="M93.4482 48.9999C94.9947 35.4695 90.0912 24.4051 82.4985 24.2896C90.0943 24.4051 97.5038 13.5304 99.0503 0C97.5038 13.5304 102.407 24.5948 110 24.7103C102.407 24.5948 94.9978 35.4695 93.4513 48.9999H93.4482Z"
             fill="#D9D9D9"
           />
@@ -62,15 +92,17 @@ const page = () => {
         <h6> تیم متخصص اوستا وب</h6>
       </div>
       <div className="max-w-[60vw] gap-10 h-[80%] py-[100px] fb flex-wrap  z-10">
-        <Personel/>
-        <Personel/>
-        <Personel/>
-        <Personel/>
-        <Personel/>
-        <Personel/>
+        {team.map((person) => (
+          <Personel
+            key={person.id}
+            name={person.name}
+            role={person.role}
+            image={person.image}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;

@@ -9,14 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@heroui/react": "^2.8.1",
+    "@mui/material": "^7.3.2",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/vite": "^4.1.7",
     "axios": "^1.10.0",
-    "framer-motion": "^12.7.3",
+    "framer-motion": "^12.23.9",
     "gsap": "^3.12.7",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "swiper": "^11.2.10",
+    "swr": "^2.3.5",
     "tailwindcss-scroll-snap": "^1.1.0"
   },
   "devDependencies": {

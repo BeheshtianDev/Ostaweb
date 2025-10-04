@@ -1,19 +1,35 @@
 @import "tailwindcss";
+@import "tailwindcss";
+@plugin '../../hero.ts';
 
+/* Note: You may need to change the path to fit your project structure */
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
 :root {
   --font-peyda: "Peyda", "sans-serif";
-  --background: #0C0C0C;
+  --background: #0c0c0c;
   --foreground: #ededed;
 }
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-mo: 300px;
+  --breakpoint-de: 1000px;
+}
+@theme inline {
+  --font-sans: var(--font-peyda);
+}
+*::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+* {
+  cursor: none !important;
+  scrollbar-width: none; /* For Firefox */
 
-/*@theme inline {*/
-/*  --font-sans: var(--font-peyda);*/
-/*}*/
-
+} 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  scrollbar-width: none; /* For Firefox */
 }
 .fc {
   display: flex;
@@ -45,33 +61,17 @@ body {
   justify-content: start;
   align-items: start;
 }
-/*h1 {*/
-/*  font-size: 40px;*/
-/*  color: #d9d9d9;*/
-/*  font-weight: 700;*/
-/*}*/
-/*h2 {*/
-/*  font-size: 32px;*/
-/*  color: #d9d9d9;*/
-/*  font-weight: 400;*/
-/*}*/
-/*h3 {*/
-/*  font-size: 24px;*/
-/*  color: #d9d9d9;*/
-/*  font-weight: 300;*/
-/*}*/
-/*h4 {*/
-/*  font-size: 20px;*/
-/*  font-weight: 500;*/
-/*}*/
-/*h5 {*/
-/*  font-size: 15px;*/
-/*  font-weight: 300;*/
-/*}*/
-/*h6 {*/
-/*  font-size: 48px;*/
-/*  font-weight: 700;*/
-/*}*/
+.swiper-pagination-bullet {
+  background: #ffffff !important;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ffffff !important;
+  opacity: 1;
+}
+
 .gold {
   background-color: #6f5d32;
 }
@@ -87,7 +87,7 @@ body {
 }
 .hide-scrollbar {
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
